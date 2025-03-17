@@ -4,8 +4,13 @@ using UnityEngine;
 
 public class ScoreTriggerZone : MonoBehaviour
 {
-
     bool active = true;
+    PlatformerPlayerController playerController;
+
+    private void Start()
+    {
+        playerController = GameObject.FindGameObjectWithTag("Player").GetComponent<PlatformerPlayerController>();
+    }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -13,14 +18,10 @@ public class ScoreTriggerZone : MonoBehaviour
         {
             active = false;
             ScoreManager.score++;
+            playerController.PlayCoinSound();
+
             Destroy(gameObject);
         }
-    }
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
     }
 
     // Update is called once per frame

@@ -35,11 +35,11 @@ public class ScoreManager : MonoBehaviour
             gameOver = true;
         }
 
-        if (score >= 10)
+        /* if (score >= 10)
         {
             won = true;
             gameOver = true;
-        }
+        } */
 
         if (gameOver)
         {
