@@ -11,12 +11,14 @@ public class PlatformerPlayerController : MonoBehaviour
     public float groundCheckRadius = 0.2f;
 
     private Rigidbody2D rb;
-    private bool isGrounded;
+    public bool isGrounded;
     private float horizontalInput;
 
     public AudioClip jumpSound;
     public AudioClip coinSound;
     private AudioSource playerAudio;
+
+    private Animator animator;
     
     // Start is called before the first frame update
     void Start()
@@ -29,6 +31,7 @@ public class PlatformerPlayerController : MonoBehaviour
         }
 
         playerAudio = GetComponent<AudioSource>();
+        animator = GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -50,7 +53,13 @@ public class PlatformerPlayerController : MonoBehaviour
     void FixedUpdate()
     {
         rb.velocity = new Vector2(horizontalInput * moveSpeed, rb.velocity.y);
+
+        animator.SetFloat("xVelocityAbs", Mathf.Abs(rb.velocity.x));
+        animator.SetFloat("yVelocity", rb.velocity.y);
+
         isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, groundLayer);
+
+        animator.SetBool("onGround", isGrounded);
 
         if (horizontalInput > 0)
         {
