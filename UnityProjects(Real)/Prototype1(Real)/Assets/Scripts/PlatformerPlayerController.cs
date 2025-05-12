@@ -41,6 +41,7 @@ public class PlatformerPlayerController : MonoBehaviour
 
         if (Input.GetButtonDown("Jump") && isGrounded)
         {
+            playerAudio.PlayOneShot(jumpSound, 1.0f);
             rb.velocity = new Vector2(rb.velocity.x, jumpForce);
         }
 
@@ -52,7 +53,10 @@ public class PlatformerPlayerController : MonoBehaviour
 
     void FixedUpdate()
     {
-        rb.velocity = new Vector2(horizontalInput * moveSpeed, rb.velocity.y);
+        if (!PlayerHealth.hitRecently)
+        {
+            rb.velocity = new Vector2(horizontalInput * moveSpeed, rb.velocity.y);
+        }
 
         animator.SetFloat("xVelocityAbs", Mathf.Abs(rb.velocity.x));
         animator.SetFloat("yVelocity", rb.velocity.y);
@@ -63,11 +67,13 @@ public class PlatformerPlayerController : MonoBehaviour
 
         if (horizontalInput > 0)
         {
-            transform.localScale = new Vector3(1f, 1f, 1f);
+            // transform.localScale = new Vector3(1f, 1f, 1f);
+            transform.rotation = Quaternion.Euler(0, 0, 0);
         }
         else if (horizontalInput < 0)
         {
-            transform.localScale = new Vector3(-1f, 1f, 1f);
+            // transform.localScale = new Vector3(-1f, 1f, 1f);
+            transform.rotation = Quaternion.Euler(0, 180, 0);
         }
     }
 
