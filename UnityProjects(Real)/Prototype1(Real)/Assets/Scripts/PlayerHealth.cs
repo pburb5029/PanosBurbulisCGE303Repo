@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerHealth : MonoBehaviour
 {
-    private int health = 100;
+    private int health = 200;
     public DisplayBar healthBar;
     private Rigidbody2D rb;
     public float knockbackForce = 5f;
